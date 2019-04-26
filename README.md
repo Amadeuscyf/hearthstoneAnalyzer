@@ -1,2 +1,3 @@
 # hearthstoneAnalyzer
-炉石传说暗影崛起环境下主流卡组数据分析
+## intro 
+Use python to implement the hearthstrone analyzer. Jupytor is recommended to run the code for data visualization.
