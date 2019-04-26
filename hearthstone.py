@@ -1,15 +1,14 @@
 import numpy as np
+from math import pi
 import pandas as pd
 import bs4
 import requests
 import matplotlib.pyplot as plt
-from math import pi
-import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
 from bokeh.io import output_file, show
 from bokeh.palettes import Category20c
 from bokeh.plotting import figure
 from bokeh.transform import cumsum
-import matplotlib.pyplot as plt
 
 #function to obtain archetype, percent of game and win rate information, then use panda to put those data in a table
 def getTable(url, index):
@@ -48,9 +47,10 @@ def getNum(archetype, decks):
     archelist.append('others')
     return archelist, counts
 
-def horizontalBar(archelist, counts):
+def horizontalBar(overallData):
     # set values in tuples
-    temp = list(zip(archelist, counts))
+    plt.figure(figsize=(15, 8))
+    temp = list(zip(overallData['Archetype'], overallData['Win Rate']))
     #sort the values in tuples
     temp.sort(key=lambda tup: tup[1], reverse=False)
     archesort = []
@@ -59,11 +59,12 @@ def horizontalBar(archelist, counts):
     for pair in temp:
         archesort.append(pair[0])
         nums.append(pair[1])
-    y_pos = np.arange(len(archelist))
+    y_pos = np.arange(len(overallData['Archetype']))
     # Create horizontal bars
     plt.barh(y_pos, nums)
     # Create names on the y-axis
     plt.yticks(y_pos, archesort)
+    # set width and height
     plt.show()
 
 # plot the pie chart with given data
@@ -116,7 +117,7 @@ def pieChart(archelist,  counts):
     p.axis.axis_label=None
     p.axis.visible=False
     p.grid.grid_line_color = None
-    show(p, notebook_handle=True)
+    show(p)
 
 # main function 
 def main():
@@ -131,7 +132,7 @@ def main():
     # plot the pie chart
     pieChart(archelist, nums)
     #plot the horizontal bar
-    horizontalBar(archelist, nums) 
+    horizontalBar(overallData) 
 
 if __name__ == "__main__":
     main()
