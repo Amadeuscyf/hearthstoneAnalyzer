@@ -108,7 +108,7 @@ def pieChart(archelist,  counts):
     data = pd.Series(values).reset_index(name='percent').rename(columns={'index':'decks'})
     data['angle'] = data['percent']/100*2*pi
     data['color'] = colors
-    p = figure(plot_width = 700, plot_height = 600, title="percentage of hearthstone archetypes in top 154 winning decks", toolbar_location=None,
+    p = figure(plot_width = 700, plot_height = 600, title="Percentage of Hearthstone Archetypes in top 154 winning decks", toolbar_location=None,
             tools="hover", tooltips="@decks: @percent%",  x_range=(-5, 8))
     p.wedge(x=0, y=1, radius=4,
             start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
@@ -116,7 +116,7 @@ def pieChart(archelist,  counts):
     p.axis.axis_label=None
     p.axis.visible=False
     p.grid.grid_line_color = None
-    show(p, notebook_handle=True )
+    show(p, notebook_handle=True)
 
 # main function 
 def main():
@@ -128,10 +128,10 @@ def main():
     individualData = getTable(url, 1)
     decks = processData(individualData)
     archelist, nums = getNum(archetype, decks)
-    #plot the horizontal bar
-    horizontalBar(archelist, nums) 
     # plot the pie chart
     pieChart(archelist, nums)
+    #plot the horizontal bar
+    horizontalBar(archelist, nums) 
 
 if __name__ == "__main__":
     main()
