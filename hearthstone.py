@@ -66,7 +66,6 @@ def horizontalBar(archelist, counts):
     plt.yticks(y_pos, archesort)
     plt.show()
 
-
 # plot the pie chart with given data
 def pieChart(archelist,  counts):
     output_file("pie.html")
