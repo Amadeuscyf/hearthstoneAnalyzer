@@ -51,7 +51,7 @@ def horizontalBar(overallData):
     # set width and height
     plt.figure(figsize=(15, 8))
     # set values in tuples
-    temp = list(zip(overallData['Archetype'], overallData['Win Rate']))
+    temp = list(zip(overallData['Archetype'][:-1], overallData['Win Rate'][:-1]))
     #sort the values in tuples
     temp.sort(key=lambda tup: tup[1], reverse=False)
     archesort = []
@@ -60,7 +60,7 @@ def horizontalBar(overallData):
     for pair in temp:
         archesort.append(pair[0])
         nums.append(pair[1])
-    y_pos = np.arange(len(overallData['Archetype']))
+    y_pos = np.arange(len(overallData['Archetype'])-1)
     # Create horizontal bars
     plt.barh(y_pos, nums)
     # Create names on the y-axis
@@ -100,7 +100,6 @@ def pieChart(archelist,  counts):
         temp[17][0]: temp[17][1],
         temp[18][0]: temp[18][1],
         temp[19][0]: temp[19][1],
-        temp[20][0]: temp[20][1],
     }
     # set colors of pie chart
     colors = Category20c[len(temp)-1]
@@ -124,7 +123,7 @@ def main():
     url = 'http://metastats.net/decks/winrate/'
     # ovearll archetype win rate, eliminate the index colum
     overallData = getTable(url, 0)   
-    archetype = overallData['Archetype']
+    archetype = overallData['Archetype'][:-1]
     # indiviudal archetype win rate, eliminate the last unamed row    
     individualData = getTable(url, 1)
     decks = processData(individualData)
