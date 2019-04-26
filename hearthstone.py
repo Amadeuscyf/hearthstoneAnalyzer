@@ -48,8 +48,9 @@ def getNum(archetype, decks):
     return archelist, counts
 
 def horizontalBar(overallData):
-    # set values in tuples
+    # set width and height
     plt.figure(figsize=(15, 8))
+    # set values in tuples
     temp = list(zip(overallData['Archetype'], overallData['Win Rate']))
     #sort the values in tuples
     temp.sort(key=lambda tup: tup[1], reverse=False)
@@ -64,7 +65,6 @@ def horizontalBar(overallData):
     plt.barh(y_pos, nums)
     # Create names on the y-axis
     plt.yticks(y_pos, archesort)
-    # set width and height
     plt.show()
 
 # plot the pie chart with given data
