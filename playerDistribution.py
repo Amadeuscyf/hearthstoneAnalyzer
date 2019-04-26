@@ -66,7 +66,7 @@ def createDataFrame(df):
 def plotMap(countries, players):
     url = 'https://raw.githubusercontent.com/python-visualization/folium/master/examples/data/world-countries.json'
     world_geo = requests.get(url).json()
-    dat = pd.DataFrame(
+    player_data = pd.DataFrame(
         [countries, players],
         index=['Country', 'Players']
     ).T
@@ -74,7 +74,7 @@ def plotMap(countries, players):
     folium.Choropleth(
         geo_data= world_geo,
         name='choropleth',
-        data=dat,
+        data= player_data,
         columns=['Country', 'Players'],
         key_on='feature.properties.name',
         fill_color='Purples',
