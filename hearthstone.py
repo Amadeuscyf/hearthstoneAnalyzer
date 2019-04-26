@@ -102,8 +102,7 @@ def pieChart(archelist,  counts):
         temp[19][0]: temp[19][1],
     }
     ## set colors of pie chart
-    colors = Category20c[len(temp)-1]
-    colors.append('#cdaef2')
+    colors = Category20c[len(temp)]
     ## set data, angle and color
     data = pd.Series(values).reset_index(name='percent').rename(columns={'index':'decks'})
     data['angle'] = data['percent']/100*2*pi
