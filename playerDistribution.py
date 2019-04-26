@@ -83,6 +83,9 @@ def plotMap(countries, players):
         legend_name='#Players',
     ).add_to(world_map)
     folium.LayerControl().add_to(world_map)
+    ## save the plot in a file
+    world_map.save('player_distribution.html')
+
 
 def main():
     playerData = getTable()

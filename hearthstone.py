@@ -10,14 +10,14 @@ from bokeh.palettes import Category20c
 from bokeh.plotting import figure
 from bokeh.transform import cumsum
 
-#function to obtain archetype, percent of game and win rate information, then use panda to put those data in a table
+##function to obtain archetype, percent of game and win rate information, then use panda to put those data in a table
 def getTable(url, index):
     html = requests.get(url).text
     soup = bs4.BeautifulSoup(html, 'html.parser')
     wrapper = soup.find("div", {"id": "wrapper"}, recursive = True)
     table = wrapper.findAll("table")[index]
     df = pd.read_html(str(table))[0]
-    df = df.drop('#', 1)                            #eliminate the index column
+    df = df.drop('#', 1)                            ##eliminate the index column
     return df
 
 ## put all decks id of individual data into a list
@@ -48,26 +48,26 @@ def getNum(archetype, decks):
     return archelist, counts
 
 def horizontalBar(overallData):
-    # set width and height
+    ## set width and height
     plt.figure(figsize=(15, 8))
-    # set values in tuples
+    ## set values in tuples
     temp = list(zip(overallData['Archetype'][:-1], overallData['Win Rate'][:-1]))
-    #sort the values in tuples
+    ## sort the values in tuples
     temp.sort(key=lambda tup: tup[1], reverse=False)
     archesort = []
     nums = []
-    # get the sorted num
+    ## get the sorted num
     for pair in temp:
         archesort.append(pair[0])
         nums.append(pair[1])
     y_pos = np.arange(len(overallData['Archetype'])-1)
-    # Create horizontal bars
+    ## Create horizontal bars
     plt.barh(y_pos, nums)
-    # Create names on the y-axis
+    ## Create names on the y-axis
     plt.yticks(y_pos, archesort)
     plt.show()
 
-# plot the pie chart with given data
+## plot the pie chart with given data
 def pieChart(archelist,  counts):
     output_file("pie.html")
     sumValue = 0.0
@@ -101,10 +101,10 @@ def pieChart(archelist,  counts):
         temp[18][0]: temp[18][1],
         temp[19][0]: temp[19][1],
     }
-    # set colors of pie chart
+    ## set colors of pie chart
     colors = Category20c[len(temp)-1]
     colors.append('#cdaef2')
-    # set data, angle and color
+    ## set data, angle and color
     data = pd.Series(values).reset_index(name='percent').rename(columns={'index':'decks'})
     data['angle'] = data['percent']/100*2*pi
     data['color'] = colors
@@ -118,19 +118,19 @@ def pieChart(archelist,  counts):
     p.grid.grid_line_color = None
     show(p)
 
-# main function 
+## main function 
 def main():
     url = 'http://metastats.net/decks/winrate/'
-    # ovearll archetype win rate, eliminate the index colum
+    ## ovearll archetype win rate, eliminate the index colum
     overallData = getTable(url, 0)   
     archetype = overallData['Archetype'][:-1]
-    # indiviudal archetype win rate, eliminate the last unamed row    
+    ## indiviudal archetype win rate, eliminate the last unamed row    
     individualData = getTable(url, 1)
     decks = processData(individualData)
     archelist, nums = getNum(archetype, decks)
-    # plot the pie chart
+    ## plot the pie chart
     pieChart(archelist, nums)
-    #plot the horizontal bar
+    ##plot the horizontal bar
     horizontalBar(overallData) 
 
 if __name__ == "__main__":
