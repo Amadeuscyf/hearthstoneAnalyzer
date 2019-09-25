@@ -5,4 +5,4 @@ Use python to implement the hearthstrone analyzer. Jupytor is recommended to run
 ## Output
 Hearthstone player distribution
 ![Global hearthstone player distribution](./Graph/distribution.png)
-
+Other outputs are in graph folder.
